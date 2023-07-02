@@ -29,5 +29,14 @@ login-db: ## login on web container
 login-nginx: ## login on nginx container
 	@docker compose exec -it nginx bash
 
+build-prod: ## [PROD] Build images
+	@docker compose --file docker-compose-prod.yml build
+up-prod: ## [PROD] Start containers stack (dettached)
+	@docker compose --file docker-compose-prod.yml up -d
+down-prod: ## [PROD] Stop containers stack 
+	@docker compose --file docker-compose-prod.yml down
+destroy-prod: ## [PROD] Stop containers stack and remove volumes
+	@docker compose --file docker-compose-prod.yml down -v
+
 runserver: ## run django project localy
 	@cd ./src ; python manage.py runserver
