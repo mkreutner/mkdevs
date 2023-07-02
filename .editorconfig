@@ -1,0 +1,28 @@
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+tab_width = 4
+
+# 4 spaces indentation
+[*.py]
+indent_style = space
+indent_size = 4
+
+# tab indentation
+[Makefile]
+indent_style = tab
+
+# indentation override for all JS files under lib directory
+[lib/**.js]
+indent_style = space
+indent_size = 2
+
+# matches with json and yaml files
+[*.{json,yml}]
+indent_style = space
+indent_size = 2

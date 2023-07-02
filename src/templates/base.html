@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-9" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title> {% block title %} mkdevs site {% endblock %} </title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:299,400" rel="stylesheet" />
+    <link href="/static/css/all.min.css" rel="stylesheet" />
+	<link href="/static/css/styles.css" rel="stylesheet" />
+</head>
+
+<body> 
+	<div class="container">
+    <!-- Top Box -->
+        <!-- Logo & Site Name -->
+        <div class="placeholder">
+			<div class="parallax-window" data-parallax="scroll" data-image-src="/static/img/mkdevs-base.png">
+				<div class="mkdevs-header">
+					<div class="row mkdevs-header-inner">
+						<div class="col-md-6 col-12">
+							<img src="/static/img/{{ site_logo_name }}.png" alt="{{ site_name }} Logo" class="mkdevs-site-logo" /> 
+							<div class="mkdevs-site-text-box">
+								<h1 class="mkdevs-site-title">{{ site_name }}</h1>
+								<h6 class="mkdevs-site-description">{{ site_description }}</h6>	
+							</div>
+						</div>
+						<nav class="col-md-6 col-12 mkdevs-nav">
+							<ul class="mkdevs-nav-ul">
+								<li class="mkdevs-nav-li"><a href="/" class="mkdevs-nav-link">Home</a></li>
+								<li class="mkdevs-nav-li"><a href="/about" class="mkdevs-nav-link">About</a></li>
+								<li class="mkdevs-nav-li"><a href="/contact" class="mkdevs-nav-link">Contact</a></li>
+							</ul>
+						</nav>	
+					</div>
+				</div>
+			</div>
+		</div>
+
+        <!-- Main content -->
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+        
+        <!-- Footer -->
+        <footer class="mkdevs-footer text-center">
+			<p>Copyright &copy; 2023 mkdevs
+            | Design: <a rel="nofollow" href="https://mkdevs.fr">mkdevs</a></p>
+		</footer>
+	</div>
+	<script src="/static/js/jquery.min.js"></script>
+	<script src="/static/js/parallax.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			// Handle click on paging links
+			$('.mkdevs-paging-link').click(function(e){
+				e.preventDefault();
+				
+				var page = $(this).text().toLowerCase();
+				$('.mkdevs-gallery-page').addClass('hidden');
+				$('#mkdevs-gallery-page-' + page).removeClass('hidden');
+				$('.mkdevs-paging-link').removeClass('active');
+				$(this).addClass("active");
+			});
+		});
+	</script>
+    </div>
+</body>
+</html>

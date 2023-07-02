@@ -1,0 +1,14 @@
+version: 2
+region: eu
+
+tunnels:
+  ssh:  
+    proto: tcp
+    addr: 22
+    remote_addr: 3.tcp.eu.ngrok.io:28700
+  http:
+    proto: http
+    addr: 127.0.0.1:80
+    hostname: mkdevs.eu.ngrok.io
+    
+
