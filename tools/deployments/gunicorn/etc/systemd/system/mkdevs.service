@@ -4,20 +4,15 @@ Requires=mkdevs.socket
 After=network.target
 
 [Service]
-Type=notify
-# the specific user that our service will run as
 User=mkdevs
-Group=mkdevs
-# another option for an even more restricted service is
-# DynamicUser=yes
-# see http://0pointer.net/blog/dynamic-users-with-systemd.html
-RuntimeDirectory=gunicorn
+Group=www-data
 WorkingDirectory=/home/mkdevs/mkdevs/src
-ExecStart=/usr/bin/gunicorn mkdevs.wsgi
+ExecStart=/home/mkdevs/.virtualenvs/mkdevs/bin/gunicorn \
+            --access-logfile - \
+            --workers 3 \
+            --bind unix:/run/mkdevs.sock \
+            mkdevs.wsgi:application
 ExecReload=/bin/kill -s HUP $MAINPID
-KillMode=mixed
-TimeoutStopSec=5
-PrivateTmp=true
 
 [Install]
 WantedBy=multi-user.target
