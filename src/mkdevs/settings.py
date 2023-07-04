@@ -140,3 +140,7 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SITE_LOGO_NAME=str(os.getenv('SITE_LOGO_NAME'))
+SITE_NAME=str(os.getenv('SITE_NAME'))
+SITE_DESCRIPTION=str(os.getenv('SITE_DESCRIPTION'))

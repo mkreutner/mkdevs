@@ -1,12 +1,11 @@
 from django.template.response import TemplateResponse
 from django.shortcuts import render
+from django.conf import settings
 
 def index(request):
     return TemplateResponse(
         request, 'about/index.html', {
-            'site_logo_name': 'mkdevs-logo',
-            'site_name': 'mkdevs',
-            'site_description': 'Let\'s brings your ideas and projects to life!',
+            'settings': settings,
             'page_title': 'About - mkdevs'
         }
     )
