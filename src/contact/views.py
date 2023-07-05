@@ -5,21 +5,31 @@ from django.views.decorators.csrf import requires_csrf_token
 from django.conf import settings
 
 from .models import ContactMessage
+from .forms import ContactMessageForm
 
 @requires_csrf_token
 def index(request):
     if request.method.upper() == 'POST':
-        cm = ContactMessage(
-            name = request._post.get('name', None), 
-            email = request._post.get('email', None), 
-            message = request._post.get('message', None),
-            created_date = datetime.now()
-        )
-        cm.save()
+        # Need to process the form data
+        # - create a form instance and populate it with data from request
+        form = ContactMessageForm(request.POST)
+        # - check whether it's valid
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            cm = ContactMessage(
+                name = form.cleaned_data.get('name', None), 
+                email = form.cleaned_data.get('email', None), 
+                message = form.cleaned_data.get('message', None),
+                created_date = datetime.now()
+            )
+            # cm.save()
+    else:
+        form = ContactMessageForm()
 
     c = {
         'settings': settings,
-        'page_title': 'Contact - mkdevs'
+        'page_title': 'Contact - mkdevs',
+        'form': form
     }
     
     return TemplateResponse(request, 'contact/index.html', c)
