@@ -14,6 +14,7 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 dotenv_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), '.env')
+print(dotenv_path)
 load_dotenv(dotenv_path)
 
 
@@ -28,7 +29,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.getenv('DEBUG'))
+if bool(os.getenv('DJANGO_DEBUG')):
+    print('''Debug is enabled.''')
+    DEBUG = True
+else:
+    DEBUG = False
 
 ALLOWED_HOSTS = str(os.getenv('ALLOWED_HOSTS')).split(',')
 CSRF_TRUSTED_ORIGINS = str(os.getenv('CSRF_TRUSTED_ORIGINS')).split(',')
@@ -44,7 +49,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Third party Apps
-    'simplemathcaptcha',
+    'widget_tweaks',
+    'captcha',
     # Project Apps
     'home',
     'about',
@@ -146,3 +152,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SITE_LOGO_NAME=str(os.getenv('SITE_LOGO_NAME'))
 SITE_NAME=str(os.getenv('SITE_NAME'))
 SITE_DESCRIPTION=str(os.getenv('SITE_DESCRIPTION'))
+
+CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
+CAPTCHA_MATH_CHALLENGE_OPERATOR = 'x'
+CAPTCHA_LETTER_ROTATION = None
+CAPTCHA_NOISE_FUNCTIONS = None #'captcha.helpers.noise_null'

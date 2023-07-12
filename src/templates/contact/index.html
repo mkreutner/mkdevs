@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load widget_tweaks %}
+
 {% block title %}{{ page_title }}{% endblock %}
 
 {% block content %}
@@ -14,10 +16,19 @@
                 {% csrf_token %}
                 {% for field in form %}
                 <div class="form-group">
-                    {{ field.errors }}
-                    {{ field }}
+                    {% if field.name != 'captcha' %}
+                        {{ field.errors }}
+                        {% if field.name == 'message' %}
+                            {% render_field field class+="form-control" placeholder=field.name rows="5" %}
+                        {% else %}
+                            {% render_field field class+="form-control" placeholder=field.name %}
+                        {% endif %}
+                    {% endif %}
                 </div> 
                 {% endfor %}
+                <div class="form-group">
+                    {{ form.captcha }}
+                </div>
                 <div class="form-group mkdevs-d-flex">
                     <button type="submit" class="mkdevs-btn mkdevs-btn-success mkdevs-btn-right">
                         Send

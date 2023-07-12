@@ -1,42 +1,22 @@
 from django import forms
-from simplemathcaptcha.widgets import MathCaptchaWidget
+from captcha.fields import CaptchaTextInput
 
 class ContactMessageForm(forms.Form):
     name = forms.CharField(
         required = True, 
         max_length = 512,
-        widget = forms.TextInput(
-            attrs = {
-                'class':'form-control',
-                'placeholder': 'Name'
-            }
-        )
+        widget = forms.TextInput()
     )
     email = forms.EmailField(
         required = True,
-        widget = forms.EmailInput(
-            attrs = {
-                'class':'form-control',
-                'placeholder': 'Email'
-            }
-        )
+        widget = forms.EmailInput()
     )
     message = forms.CharField(
         required = True, 
-        widget = forms.Textarea(
-            attrs = {
-                'class':'form-control', 
-                'placeholder': 'Message',
-                'rows': '5'
-            }
-        )
+        widget = forms.Textarea()
     )
     captcha = forms.CharField(
-        required = True,
-        widget = MathCaptchaWidget(
-            start_int = 1,
-            end_int = 100,
-            question_tmpl = "%(num1)i %(operator)s %(num2)i = ",
-            question_class = "form-control"
-        )
-    )
+        required=True,
+        widget = CaptchaTextInput()
+    )    
+

@@ -9,6 +9,7 @@ from .forms import ContactMessageForm
 
 @requires_csrf_token
 def index(request):
+    clean_form = True
     if request.method.upper() == 'POST':
         # Need to process the form data
         # - create a form instance and populate it with data from request
@@ -22,8 +23,12 @@ def index(request):
                 message = form.cleaned_data.get('message', None),
                 created_date = datetime.now()
             )
-            # cm.save()
-    else:
+            cm.save()
+        else:
+            clean_form = False
+    
+    # Create new form for next contact message
+    if clean_form:
         form = ContactMessageForm()
 
     c = {

@@ -39,4 +39,6 @@ destroy-prod: ## [PROD] Stop containers stack and remove volumes
 	@docker compose --file docker-compose-prod.yml down -v
 
 runserver: ## run django project localy
-	@cd ./src ; python manage.py runserver
+	@cd ./src ; reset ; python manage.py runserver
+psql: ## connect to database
+	psql --username=mkdevs_user --host=localhost --port=5432 --dbname=mkdevs --password
